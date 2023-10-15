@@ -1,17 +1,85 @@
 /* style.css */
+body {
+    background-color: #121212; /* Dark background color for the entire page */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
 #chat-container {
-    width: 300px;
-    margin: 0 auto;
+    width: 400px;
+    background-color: #222;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 #chat {
-    height: 300px;
+    flex-grow: 1;
     overflow-y: scroll;
-    border: 1px solid #ccc;
+    border: 1px solid #444;
     padding: 10px;
+    background-color: #111;
+    border-radius: 10px;
 }
 
 #user-input {
     width: 100%;
     padding: 10px;
+    border: none;
+    border-top: 1px solid #444;
+    background-color: #222;
+    outline: none;
+    color: #fff;
+    border-radius: 0 0 10px 10px;
+}
+.user-message {
+    background-color: #007AFF;
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px;
+    max-width: 70%;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #444;
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px;
+    max-width: 70%;
+}
+.bot-typing {
+    color: #ffffff; /* Color for the typing indicator */
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 8px;
+    max-width: 70%;
+    align-self: flex-start; /* Align the indicator to the left */
+    overflow: hidden;
+}
+
+.bot-typing::after {
+    content: "..."; /* Ellipsis content */
+    display: inline-block;
+    animation: ellipsis 1s infinite; /* Animate the ellipsis */
+}
+
+@keyframes ellipsis {
+    0% {
+        content: ".";
+    }
+    33% {
+        content: "..";
+    }
+    66% {
+        content: "...";
+    }
 }
