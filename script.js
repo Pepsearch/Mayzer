@@ -1,4 +1,3 @@
-// script.js
 const chatContainer = document.getElementById("chat-container");
 const chat = document.getElementById("chat");
 const userInput = document.getElementById("user-input");
