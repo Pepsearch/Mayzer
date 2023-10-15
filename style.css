@@ -1,0 +1,17 @@
+/* style.css */
+#chat-container {
+    width: 300px;
+    margin: 0 auto;
+}
+
+#chat {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+#user-input {
+    width: 100%;
+    padding: 10px;
+}
