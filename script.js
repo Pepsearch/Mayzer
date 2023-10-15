@@ -27,8 +27,18 @@ userInput.addEventListener("keyup", function(event) {
         appendUserMessage(userMessage);
         userInput.value = "";
 
+        // Convert user input to lowercase for case insensitivity
         const userMessageLower = userMessage.toLowerCase();
-        let botResponse = botResponses[userMessageLower] || botResponses["default"];
+
+        // Iterate through keywords in a case-insensitive manner
+        let botResponse = botResponses["default"];
+        for (const keyword in botResponses) {
+            if (userMessageLower.includes(keyword)) {
+                botResponse = botResponses[keyword];
+                break;
+            }
+        }
+
         appendBotMessage(botResponse);
     }
 });
