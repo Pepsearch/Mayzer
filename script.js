@@ -5,13 +5,15 @@ const userInput = document.getElementById("user-input");
 const botResponses = {
     "hello": "Hello there!",
     "how are you": "I'm just a chatbot, but I'm here to help!",
-    "name": "I'm just a bot, but you can call me Mayzer!",
+    "name": "My name is Mayzer. What's yours?",
     "bye": "Goodbye! Have a great day!",
     "help": "I can assist you with information or answer questions. Just ask!",
     "thanks": "You're welcome!",
     "default": "I'm not sure how to respond to that.",
     "test": "Working properly.",
-    "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you."
+    "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you.",
+    "angie": "Oh your name is Angie? Heres a math problem: sqrt(cos(x))*cos(500*x)+sqrt(abs(x))-0.4)*(3-x*x)^0.1 (Hint: Put it in Google)",
+    "angela": "Oh your name is Angie? Heres a math problem: sqrt(cos(x))*cos(500*x)+sqrt(abs(x))-0.4)*(3-x*x)^0.1 (Hint: Put it in Google)",
 };
 
 function appendUserMessage(message) {
