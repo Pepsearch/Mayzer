@@ -12,8 +12,6 @@ const botResponses = {
     "default": "I'm not sure how to respond to that.",
     "test": "Working properly.",
     "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you.",
-    "angie": "Oh your name is Angie? Heres a math problem: sqrt(cos(x))*cos(500*x)+sqrt(abs(x))-0.4)*(3-x*x)^0.1 (Hint: Put it in Google)",
-    "angela": "Oh your name is Angela? Heres a math problem: sqrt(cos(x))*cos(500*x)+sqrt(abs(x))-0.4)*(3-x*x)^0.1 (Hint: Put it in Google)",
 };
 
 function appendUserMessage(message) {
