@@ -24,7 +24,7 @@ function removeTypingIndicator() {
 }
 
 function sendUserMessageToAI(userMessage) {
-    const apiUrl = 'https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation';
+    const apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation');;
 
     fetch(apiUrl, {
         method: 'POST',
