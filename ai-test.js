@@ -24,7 +24,7 @@ function removeTypingIndicator() {
 }
 
 function sendUserMessageToAI(userMessage) {
-    const apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation');;
+    const apiUrl = 'https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation';
 
     fetch(apiUrl, {
         method: 'POST',
@@ -32,33 +32,62 @@ function sendUserMessageToAI(userMessage) {
             'content-type': "application/json",
             "accept": "text/event-stream"
         },
-        body: {
-            "conversation_id": "0f0e8bc2-653b-92f6-c22e-18b508b5db4",
-            "action": "_ask",
-            "model": "gpt-3.5-turbo",
-            "jailbreak": "default",
-            "provider": "g4f.Provider.Auto",
-            "meta": {
-                "id": "7292269700039164921",
-                "content": {
-                    "conversation": [],
-                    "internet_access": false,
-                    "content_type": "text",
-                    "parts": [
-                        {
-                            "content": userMessage,
-                            "role": "user"
-                        }
-                    ]
+        body: JSON.stringify({
+                conversation_id: "",
+                action: "_ask",
+                model: "gpt-3.5-turbo",
+                jailbreak: "default",
+                provider: "g4f.Provider.Auto",
+
+                meta: {
+                    id: "7292269700039164921",
+                    content: {
+                        conversation: [],
+                        internet_access: `false`,
+                        content_type: "text",
+                        parts: [
+                            {
+                                content: userMessage,
+                                role: "user"
+                            }
+                        ]
+                    }
                 }
-            }
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const botResponse = data.choices[0].text;
+            })
+        })
+    .then(response => {
+        var botResponse
+        const stream = response.body;
+        const reader = stream.getReader();
+
+        const readChunk = () => {
+            // Read a chunk from the reader
+            reader.read()
+                .then(({
+                    value,
+                    done
+                }) => {
+                    // Check if the stream is done
+                    if (done) {
+                        // Log a message
+                        // console.log('Stream finished');
+                        return;
+                    }
+                    // Convert the chunk value to a string
+                    const chunkString = new TextDecoder().decode(value);
+                    botResponse += chunkString;   
+                    // Read the next chunk
+                    readChunk();
+                })
+                .catch(error => {
+                    // Log the error
+                    console.error(error);
+                });
+        };
+
         removeTypingIndicator();
         appendBotMessage(botResponse);
+        console.log(botResponse)
     })
     .catch(error => {
         console.error('Error:', error);
