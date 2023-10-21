@@ -10,8 +10,9 @@ const botResponses = {
     "help": "I can assist you with information or answer questions. Just ask!",
     "thanks": "You're welcome!",
     "default": "I'm not sure how to respond to that.",
-    "test": "Working properly.",
-    "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you.",
+    "test": "I'm still working properly.",
+    "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you. Seriously, though, Mayzer is better than GPT (or is it?).",
+    "i'm dying": "Unfortunately, I am an AI, and do not have the ability do dial your local emergency number. Hope you get better!",
 };
 
 function appendUserMessage(message) {
