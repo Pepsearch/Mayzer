@@ -62,9 +62,9 @@ async function sendUserMessageToAI(userMessage) {
         const reader = stream.getReader();
         console.log(response)
 
-        const readChunk = () => {
+        const readChunk = async () => {
             // Read a chunk from the reader
-            reader.read()
+            await reader.read()
                 .then(({
                     value,
                     done
