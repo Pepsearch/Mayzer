@@ -2,6 +2,22 @@ const chatContainer = document.getElementById("chat-container");
 const chat = document.getElementById("chat");
 const userInput = document.getElementById("user-input");
 
+<<<<<<< HEAD
+=======
+const botResponses = {
+    "hello": "Hello there!",
+    "how are you": "I'm just a chatbot, but I'm here to help!",
+    "name": "My name is Mayzer. What's yours?",
+    "bye": "Goodbye! Have a great day!",
+    "help": "I can assist you with information or answer questions. Just ask!",
+    "thanks": "You're welcome!",
+    "default": "I'm not sure how to respond to that.",
+    "test": "I'm still working properly.",
+    "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you. Seriously, though, Mayzer is better than GPT (or is it?).",
+    "i'm dying": "Unfortunately, I am an AI, and do not have the ability do dial your local emergency number. Hope you get better!",
+};
+
+>>>>>>> 0dc3c2f422c71c5f7ddefbdaa73125318cc07d8d
 function appendUserMessage(message) {
     chat.innerHTML += `<div class="user-message">${message}</div>`;
 }
