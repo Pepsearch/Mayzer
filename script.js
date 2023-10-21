@@ -2,25 +2,13 @@ const chatContainer = document.getElementById("chat-container");
 const chat = document.getElementById("chat");
 const userInput = document.getElementById("user-input");
 
-const botResponses = {
-    "hello": "Hello there!",
-    "how are you": "I'm just a chatbot, but I'm here to help!",
-    "name": "My name is Mayzer. What's yours?",
-    "bye": "Goodbye! Have a great day!",
-    "help": "I can assist you with information or answer questions. Just ask!",
-    "thanks": "You're welcome!",
-    "default": "I'm not sure how to respond to that.",
-    "test": "I'm still working properly.",
-    "gimme a secret": "never gonna give you up, never gonna let you down, never gonna run around and desert you. never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you. Seriously, though, Mayzer is better than GPT (or is it?).",
-    "i'm dying": "Unfortunately, I am an AI, and do not have the ability do dial your local emergency number. Hope you get better!",
-};
-
 function appendUserMessage(message) {
     chat.innerHTML += `<div class="user-message">${message}</div>`;
 }
 
 function appendBotMessage(message) {
     chat.innerHTML += `<div class="bot-message">${message}</div>`;
+    chat.scrollTop = chat.scrollHeight;
 }
 
 function simulateTyping() {
@@ -35,33 +23,90 @@ function removeTypingIndicator() {
     }
 }
 
+async function sendUserMessageToAI(userMessage) {
+    const apiUrl = 'https://gpt4free.dotm38.repl.co/backend-api/v2/conversation';
+
+    await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'content-type': "application/json",
+            "accept": "text/event-stream"
+        },
+        body: JSON.stringify({
+                conversation_id: "",
+                action: "_ask",
+                model: "gpt-3.5-turbo",
+                jailbreak: "default",
+                provider: "g4f.Provider.Auto",
+
+                meta: {
+                    id: "7292269700039164921",
+                    content: {
+                        conversation: [],
+                        internet_access: `false`,
+                        content_type: "text",
+                        parts: [
+                            {
+                                content: userMessage,
+                                role: "user"
+                            }
+                        ]
+                    }
+                }
+            })
+        })
+    .then(await new Promise(r => setTimeout(r, 12000)))
+    .then(async response => {
+        var botResponse
+        const stream = response.body;
+        const reader = stream.getReader();
+        console.log(response)
+
+        const readChunk = () => {
+            // Read a chunk from the reader
+            reader.read()
+                .then(({
+                    value,
+                    done
+                }) => {
+                    // Check if the stream is done
+                    if (done) {
+                        // Log a message
+                        console.log('Stream finished');
+                        return;
+                    }
+                    // Convert the chunk value to a string
+                    const chunkString = new TextDecoder().decode(value);
+                    botResponse += chunkString
+
+                    // Read the next chunk
+                    readChunk();
+                })
+                .catch(error => {
+                    // Log the error
+                    console.error(error);
+                });
+        };
+        await new Promise(r => setTimeout(r, 1000));
+        await readChunk()
+        console.log(botResponse)
+
+        removeTypingIndicator();
+        appendBotMessage(botResponse);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 userInput.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
         const userMessage = userInput.value;
         appendUserMessage(userMessage);
         userInput.value = "";
 
-        // Simulate typing before bot response
         simulateTyping();
 
-        // Simulate a slight delay in the bot's response
-        setTimeout(() => {
-            removeTypingIndicator();
-
-            // Convert user input to lowercase for case insensitivity
-            const userMessageLower = userMessage.toLowerCase();
-
-            // Iterate through keywords in a case-insensitive manner
-            let botResponse = botResponses["default"];
-            for (const keyword in botResponses) {
-                if (userMessageLower.includes(keyword)) {
-                    botResponse = botResponses[keyword];
-                    break;
-                }
-            }
-
-            appendBotMessage(botResponse);
-            chat.scrollTop = chat.scrollHeight;
-        }, 1000); // Adjust the delay time as needed (1 second in this example)
+        sendUserMessageToAI(userMessage);
     }
 });
