@@ -24,7 +24,7 @@ function removeTypingIndicator() {
 }
 
 function sendUserMessageToAI(userMessage) {
-    const apiUrl = 'https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation';
+    const apiUrl = 'https://gpt4free.dotm38.repl.co/backend-api/v2/conversation';
 
     fetch(apiUrl, {
         method: 'POST',
@@ -59,6 +59,7 @@ function sendUserMessageToAI(userMessage) {
         var botResponse
         const stream = response.body;
         const reader = stream.getReader();
+        console.log(response)
 
         const readChunk = () => {
             // Read a chunk from the reader
@@ -70,7 +71,7 @@ function sendUserMessageToAI(userMessage) {
                     // Check if the stream is done
                     if (done) {
                         // Log a message
-                        // console.log('Stream finished');
+                        console.log('Stream finished');
                         return;
                     }
                     // Convert the chunk value to a string
@@ -84,10 +85,10 @@ function sendUserMessageToAI(userMessage) {
                     console.error(error);
                 });
         };
-
+        readChunk()
+        console.log(botResponse)
         removeTypingIndicator();
         appendBotMessage(botResponse);
-        console.log(botResponse)
     })
     .catch(error => {
         console.error('Error:', error);
