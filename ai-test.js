@@ -42,7 +42,7 @@ function sendUserMessageToAI(userMessage) {
                 "id": "7292269700039164921",
                 "content": {
                     "conversation": [],
-                    // "internet_access": false,
+                    "internet_access": false,
                     "content_type": "text",
                     "parts": [
                         {
