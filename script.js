@@ -55,7 +55,7 @@ async function sendUserMessageToAI(userMessage) {
                 }
             })
         })
-    .then(await new Promise(r => setTimeout(r, 12000)))
+    .then(await new Promise(r => setTimeout(r, 10000)))
     .then(async response => {
         var botResponse
         const stream = response.body;
@@ -77,8 +77,10 @@ async function sendUserMessageToAI(userMessage) {
                     }
                     // Convert the chunk value to a string
                     const chunkString = new TextDecoder().decode(value);
-                    botResponse += chunkString
-
+                    console.log(chunkString)
+                    if (chunkString != undefined){
+                        botResponse += chunkString
+                    }
                     // Read the next chunk
                     readChunk();
                 })
@@ -87,10 +89,9 @@ async function sendUserMessageToAI(userMessage) {
                     console.error(error);
                 });
         };
-        await new Promise(r => setTimeout(r, 1000));
         await readChunk()
-        console.log(botResponse)
 
+        console.log(botResponse)
         removeTypingIndicator();
         appendBotMessage(botResponse);
     })
