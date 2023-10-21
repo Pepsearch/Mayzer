@@ -23,10 +23,10 @@ function removeTypingIndicator() {
     }
 }
 
-function sendUserMessageToAI(userMessage) {
+async function sendUserMessageToAI(userMessage) {
     const apiUrl = 'https://gpt4free.dotm38.repl.co/backend-api/v2/conversation';
 
-    fetch(apiUrl, {
+    await fetch(apiUrl, {
         method: 'POST',
         headers: {
             'content-type': "application/json",
@@ -55,7 +55,7 @@ function sendUserMessageToAI(userMessage) {
                 }
             })
         })
-    .then(response => {
+    .then(async response => {
         var botResponse
         const stream = response.body;
         const reader = stream.getReader();
@@ -85,7 +85,8 @@ function sendUserMessageToAI(userMessage) {
                     console.error(error);
                 });
         };
-        readChunk()
+        await new Promise(r => setTimeout(r, 10000));
+        await readChunk()
         console.log(botResponse)
         removeTypingIndicator();
         appendBotMessage(botResponse);
