@@ -2,8 +2,6 @@ const chatContainer = document.getElementById("chat-container");
 const chat = document.getElementById("chat");
 const userInput = document.getElementById("user-input");
 
-const apiKey = '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'; // Replace with your actual API key
-
 function appendUserMessage(message) {
     chat.innerHTML += `<div class="user-message">${message}</div>`;
 }
@@ -26,19 +24,35 @@ function removeTypingIndicator() {
 }
 
 function sendUserMessageToGPT3(userMessage) {
-    const apiUrl = 'https://free.churchless.tech/v1/chat/completions';
+    const apiUrl = 'https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation';
 
     fetch(apiUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'content-type': "application/json",
+            "accept": "text/event-stream"
         },
-        body: JSON.stringify({
-            prompt: userMessage,
-            max_tokens: 50, // Adjust max_tokens as needed
-            n: 1 // Number of responses to generate
-        })
+        body: {
+            "conversation_id": "0f0e8bc2-653b-92f6-c22e-18b508b5db4",
+            "action": "_ask",
+            "model": "gpt-3.5-turbo",
+            "jailbreak": "default",
+            "provider": "g4f.Provider.Auto",
+            "meta": {
+                "id": "7292269700039164921",
+                "content": {
+                    "conversation": [],
+                    "internet_access": False,
+                    "content_type": "text",
+                    "parts": [
+                        {
+                            "content": userMessage,
+                            "role": "user"
+                        }
+                    ]
+                }
+            }
+        }
     })
     .then(response => response.json())
     .then(data => {
@@ -57,10 +71,8 @@ userInput.addEventListener("keyup", function(event) {
         appendUserMessage(userMessage);
         userInput.value = "";
 
-        // Simulate typing before bot response
         simulateTyping();
 
-        // Send the user message to GPT-3.5
         sendUserMessageToGPT3(userMessage);
     }
 });
