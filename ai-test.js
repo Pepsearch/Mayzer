@@ -87,6 +87,11 @@ async function sendUserMessageToAI(userMessage) {
         };
         await new Promise(r => setTimeout(r, 10000));
         await readChunk()
+        await new Promise(r => setTimeout(r, 10000));
+        await readChunk()
+        await new Promise(r => setTimeout(r, 10000));
+        await readChunk()
+
         console.log(botResponse)
         removeTypingIndicator();
         appendBotMessage(botResponse);
