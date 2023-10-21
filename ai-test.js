@@ -55,6 +55,7 @@ async function sendUserMessageToAI(userMessage) {
                 }
             })
         })
+    .then(await new Promise(r => setTimeout(r, 10000)))
     .then(async response => {
         var botResponse
         const stream = response.body;
@@ -85,10 +86,6 @@ async function sendUserMessageToAI(userMessage) {
                     console.error(error);
                 });
         };
-        await new Promise(r => setTimeout(r, 10000));
-        await readChunk()
-        await new Promise(r => setTimeout(r, 10000));
-        await readChunk()
         await new Promise(r => setTimeout(r, 10000));
         await readChunk()
 
