@@ -77,7 +77,9 @@ async function sendUserMessageToAI(userMessage) {
                     }
                     // Convert the chunk value to a string
                     const chunkString = new TextDecoder().decode(value);
-                    botResponse += chunkString;   
+                    if (chunkString !== undefined){
+                        botResponse += chunkString
+                    }
                     // Read the next chunk
                     readChunk();
                 })
@@ -86,7 +88,6 @@ async function sendUserMessageToAI(userMessage) {
                     console.error(error);
                 });
         };
-        await new Promise(r => setTimeout(r, 10000));
         await readChunk()
 
         console.log(botResponse)
