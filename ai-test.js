@@ -23,7 +23,7 @@ function removeTypingIndicator() {
     }
 }
 
-function sendUserMessageToGPT3(userMessage) {
+function sendUserMessageToAI(userMessage) {
     const apiUrl = 'https://gpt4free.paramchosting.repl.co/backend-api/v2/conversation';
 
     fetch(apiUrl, {
@@ -42,7 +42,7 @@ function sendUserMessageToGPT3(userMessage) {
                 "id": "7292269700039164921",
                 "content": {
                     "conversation": [],
-                    "internet_access": False,
+                    // "internet_access": false,
                     "content_type": "text",
                     "parts": [
                         {
@@ -73,6 +73,6 @@ userInput.addEventListener("keyup", function(event) {
 
         simulateTyping();
 
-        sendUserMessageToGPT3(userMessage);
+        sendUserMessageToAI(userMessage);
     }
 });
