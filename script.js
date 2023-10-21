@@ -55,7 +55,7 @@ async function sendUserMessageToAI(userMessage) {
                 }
             })
         })
-    .then(await new Promise(r => setTimeout(r, 10000)))
+    .then(await new Promise(r => setTimeout(r, 12000)))
     .then(async response => {
         var botResponse
         const stream = response.body;
