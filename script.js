@@ -78,6 +78,9 @@ async function sendUserMessageToAI(userMessage) {
                     // Convert the chunk value to a string
                     const chunkString = new TextDecoder().decode(value);
                     botResponse += chunkString
+                    // if (chunkString != undefined){
+                    //     botResponse += chunkString
+                    // }
                     // Read the next chunk
                     readChunk();
                 })
@@ -87,8 +90,8 @@ async function sendUserMessageToAI(userMessage) {
                 });
         };
         await readChunk()
-
         console.log(botResponse)
+        
         removeTypingIndicator();
         appendBotMessage(botResponse);
     })
