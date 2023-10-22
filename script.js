@@ -34,7 +34,7 @@ async function sendUserMessageToAI(userMessage) {
         body: JSON.stringify({
                 model: "gpt-3.5-turbo",
                 jailbreak: "default",
-                provider: "g4f.Provider.Auto",
+                provider: "g4f.Provider.Geekgpt",
                 internet_access: "false",
 
                 content: {
