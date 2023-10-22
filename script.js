@@ -25,7 +25,7 @@ function removeTypingIndicator() {
 
 function sendUserMessageToAI(userMessage) {
     const apiUrl = 'https://gpt4free.dotm38.repl.co/custom/api/conversation';
-
+    var botResponse;
     fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -48,12 +48,17 @@ function sendUserMessageToAI(userMessage) {
                 }
             })
         })
-    .then(response => response.text())
+    .then(response => {if (response.ok) return response.text()}) // if the response code is 200 then only continue
     .then(text => {
-        const botResponse = text
-        console.log(text)
-        removeTypingIndicator();
-        appendBotMessage(botResponse);
+        if (text !== undefined) { // if its not 200 then text will be undefined
+            botResponse = text
+            console.log(text)
+            removeTypingIndicator();
+            appendBotMessage(botResponse);
+        }else { // when text is undefined i.e server has error, we just retry the request
+            console.log("SERVER ERROR, RETRYING REQUEST")
+            sendUserMessageToAI(userMessage)
+        }
     })
     .catch(error => {
         console.error('Error:', error);
