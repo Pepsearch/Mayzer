@@ -24,72 +24,35 @@ function removeTypingIndicator() {
 }
 
 async function sendUserMessageToAI(userMessage) {
-    const apiUrl = 'https://gpt4free.dotm38.repl.co/backend-api/v2/conversation';
+    const apiUrl = 'https://gpt4free.dotm38.repl.co/custom/api/conversation';
 
     await fetch(apiUrl, {
         method: 'POST',
         headers: {
             'content-type': "application/json",
-            "accept": "text/event-stream"
         },
         body: JSON.stringify({
-                conversation_id: "",
-                action: "_ask",
                 model: "gpt-3.5-turbo",
                 jailbreak: "default",
                 provider: "g4f.Provider.Auto",
+                internet_access: "false",
 
-                meta: {
-                    id: "7292269700039164921",
-                    content: {
-                        conversation: [],
-                        internet_access: `false`,
-                        content_type: "text",
-                        parts: [
-                            {
-                                content: userMessage,
-                                role: "user"
-                            }
-                        ]
-                    }
+                content: {
+                    conversation: [],
+                    prompt: [
+                        {
+                            content: userMessage,
+                            role: "user"
+                        }
+                    ]
                 }
             })
         })
-    .then(await new Promise(r => setTimeout(r, 12000)))
-    .then(async response => {
-        var botResponse
-        const stream = response.body;
-        const reader = stream.getReader();
-        console.log(response)
-
-        const readChunk = async () => {
-            // Read a chunk from the reader
-            await reader.read()
-                .then(({
-                    value,
-                    done
-                }) => {
-                    // Check if the stream is done
-                    if (done) {
-                        // Log a message
-                        console.log('Stream finished');
-                        return;
-                    }
-                    // Convert the chunk value to a string
-                    const chunkString = new TextDecoder().decode(value);
-                    botResponse += chunkString
- 
-                    // Read the next chunk
-                    readChunk();
-                })
-                .catch(error => {
-                    // Log the error
-                    console.error(error);
-                });
-        };
-        await readChunk()
-        console.log(botResponse)
-        
+    .then(await new Promise(r => setTimeout(r, 5000)))
+    .then(response => response.text())
+    .then(text => {
+        const botResponse = text
+        console.log(text)
         removeTypingIndicator();
         appendBotMessage(botResponse);
     })
