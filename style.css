@@ -42,27 +42,29 @@ body {
     border-radius: 0 0 10px 10px;
 }
 .user-message {
-    font-size: medium;
-    position: relative;
-    left: 45%;
-    margin: 10px 0px;
+    display: block;
+    margin: 10px 0px 10px auto;
     text-align: right;
     background-color: #007AFF;
     color: #fff;
     border-radius: 10px;
     padding: 10px;
-    width: 50%;
+    min-width: 50%;
+    width: fit-content;
+    max-width: 80%;
 }
 
 .bot-message {
-    position: relative;
-    right: -5%;
+    display: block;
+    margin: 10px 0px 10px auto;
     text-align: left;
     background-color: #444;
     color: #fff;
     border-radius: 10px;
     padding: 10px;
-    width: 50%;
+    min-width: 50%;
+    width: fit-content;
+    max-width: 80%;
     margin: 10px 0px;
 }
 .bot-typing {
