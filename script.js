@@ -33,7 +33,7 @@ function sendUserMessageToAI(userMessage) {
         },
         body: JSON.stringify({
                 model: "gpt-3.5-turbo",
-                jailbreak: "default",
+                jailbreak: "Mayzer",
                 provider: "g4f.Provider.Geekgpt",
                 internet_access: "false",
 
