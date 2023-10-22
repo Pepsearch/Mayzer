@@ -14,6 +14,7 @@ function appendBotMessage(message) {
 }
 
 function simulateTyping() {
+    document.getElementById("user-input").disabled = true;
     chat.innerHTML += `<div class="bot-typing">Mayzer is typing</div>`;
     chat.scrollTop = chat.scrollHeight;
 }
@@ -22,6 +23,7 @@ function removeTypingIndicator() {
     const typingIndicator = document.querySelector(".bot-typing");
     if (typingIndicator) {
         chat.removeChild(typingIndicator);
+        document.getElementById("user-input").disabled = false;
     }
 }
 
