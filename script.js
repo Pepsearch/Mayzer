@@ -61,7 +61,8 @@ function sendUserMessageToAI(userMessage) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Error:', error, "\n\n RETRYING REQUEST");
+        sendUserMessageToAI(userMessage) // retry
     });
 }
 
