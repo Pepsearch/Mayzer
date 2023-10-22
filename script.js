@@ -60,7 +60,7 @@ async function sendUserMessageToAI(userMessage) {
             await removeTypingIndicator();
             await appendBotMessage(botResponse);
         }else { // when text is undefined/empty i.e server has error, we just retry the request
-            console.log("SERVER ERROR, RETRYING REQUEST")
+            console.log("CLIENT ENCOUNTERED ERROR, RETRYING REQUEST")
             await sendUserMessageToAI(userMessage)
             return
         }
