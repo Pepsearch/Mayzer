@@ -50,12 +50,12 @@ function sendUserMessageToAI(userMessage) {
         })
     .then(response => {if (response.ok) return response.text()}) // if the response code is 200 then only continue
     .then(text => {
-        if (text !== undefined) { // if its not 200 then text will be undefined
+        if (text) { // if its not 200 then text will be undefined or empty
             botResponse = text
             console.log(text)
             removeTypingIndicator();
             appendBotMessage(botResponse);
-        }else { // when text is undefined i.e server has error, we just retry the request
+        }else { // when text is undefined/empty i.e server has error, we just retry the request
             console.log("SERVER ERROR, RETRYING REQUEST")
             sendUserMessageToAI(userMessage)
         }
