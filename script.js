@@ -23,10 +23,10 @@ function removeTypingIndicator() {
     }
 }
 
-async function sendUserMessageToAI(userMessage) {
+function sendUserMessageToAI(userMessage) {
     const apiUrl = 'https://gpt4free.dotm38.repl.co/custom/api/conversation';
 
-    await fetch(apiUrl, {
+    fetch(apiUrl, {
         method: 'POST',
         headers: {
             'content-type': "application/json",
@@ -48,7 +48,6 @@ async function sendUserMessageToAI(userMessage) {
                 }
             })
         })
-    .then(await new Promise(r => setTimeout(r, 5000)))
     .then(response => response.text())
     .then(text => {
         const botResponse = text
