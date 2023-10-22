@@ -2,6 +2,8 @@ const chatContainer = document.getElementById("chat-container");
 const chat = document.getElementById("chat");
 const userInput = document.getElementById("user-input");
 
+var current_convo = []
+
 function appendUserMessage(message) {
     chat.innerHTML += `<div class="user-message">${message}</div>`;
 }
@@ -23,10 +25,10 @@ function removeTypingIndicator() {
     }
 }
 
-function sendUserMessageToAI(userMessage) {
+async function sendUserMessageToAI(userMessage) {
     const apiUrl = 'https://gpt4free.dotm38.repl.co/custom/api/conversation';
     var botResponse;
-    fetch(apiUrl, {
+    await fetch(apiUrl, {
         method: 'POST',
         headers: {
             'content-type': "application/json",
@@ -38,32 +40,43 @@ function sendUserMessageToAI(userMessage) {
                 internet_access: "false",
 
                 content: {
-                    conversation: [],
+                    conversation: current_convo,
                     prompt: [
                         {
-                            content: userMessage,
-                            role: "user"
+                            role: "user",
+                            content: userMessage
                         }
                     ]
                 }
             })
         })
     .then(response => {if (response.ok) return response.text()}) // if the response code is 200 then only continue
-    .then(text => {
+    .then(async text => {
         if (text) { // if its not 200 then text will be undefined or empty
             botResponse = text
             console.log(text)
-            removeTypingIndicator();
-            appendBotMessage(botResponse);
+            await removeTypingIndicator();
+            await appendBotMessage(botResponse);
         }else { // when text is undefined/empty i.e server has error, we just retry the request
             console.log("SERVER ERROR, RETRYING REQUEST")
-            sendUserMessageToAI(userMessage)
+            await sendUserMessageToAI(userMessage)
+            return
         }
     })
     .catch(error => {
         console.error('Error:', error, "\n\n RETRYING REQUEST");
         sendUserMessageToAI(userMessage) // retry
+        return
     });
+
+    // Add the new prompt-response to the convo
+    await current_convo.push({
+        role: "user",
+        content: userMessage
+    }, {
+        role: "assistant",
+        content: botResponse
+    })
 }
 
 userInput.addEventListener("keyup", function(event) {
