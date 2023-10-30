@@ -36,7 +36,7 @@ async function sendUserMessageToAI(userMessage) {
             'content-type': "application/json",
         },
         body: JSON.stringify({
-                model: "gpt-3.5-turbo",
+                model: "gpt-4",
                 jailbreak: "Mayzer",
                 provider: "g4f.Provider.Geekgpt",
                 internet_access: "true",
