@@ -39,7 +39,7 @@ async function sendUserMessageToAI(userMessage) {
                 model: "gpt-3.5-turbo",
                 jailbreak: "Mayzer",
                 provider: "g4f.Provider.Geekgpt",
-                internet_access: "false",
+                internet_access: "true",
 
                 content: {
                     conversation: current_convo,
