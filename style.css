@@ -12,7 +12,7 @@ body {
 #chat-container {
     max-height: 700px;
     width: 50%;
-    background-color: #222;
+    background-color: #40444b;
     color: #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
@@ -27,7 +27,7 @@ body {
     overflow: scroll;
     border: 1px solid #444;
     padding: 10px;
-    background-color: #111;
+    background-color: #333;
     border-radius: 10px;
 }
 
@@ -36,7 +36,7 @@ body {
     padding: 10px;
     border: none;
     border-top: 1px solid #444;
-    background-color: #222;
+    background-color: #40444b;
     outline: none;
     color: #fff;
     border-radius: 0 0 10px 10px;
